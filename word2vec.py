@@ -18,11 +18,8 @@ class Word2Vec(sobamchan_chainer.Model):
         )
 
     def __call__(self, xb, yb, tb):
-        x = Variable(utility.np_int32(xb))
-        y = Variable(utility.np_int32(yb))
-        t = Variable(utility.np_int32(tb))
-        y = self.fwd(x, y)
-        return F.sigmoid_cross_entropy(y, t)
+        y = self.fwd(xb, yb)
+        return F.sigmoid_cross_entropy(y, tb)
 
     def fwd(self, x, y):
         x = self.embed(x)

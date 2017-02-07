@@ -47,6 +47,9 @@ def train(args):
             ids = sffindx[pos:pos+args.bs]
             xb, yb, tb = make_batch_set(vocabulary.dataset, ids, sampler, args.negative, args.ws)
             model.cleargrads()
+            xb = model.prepare_input(xb, np.int32, volatile=False)
+            yb = model.prepare_input(yb, np.int32, volatile=False)
+            tb = model.prepare_input(tb, np.int32, volatile=False)
             loss = model(xb, yb, tb)
             loss.backward()
             optimizer.update()
